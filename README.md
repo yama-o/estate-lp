@@ -4,7 +4,7 @@
 管理会社様・オーナー様・入居者様の悩みを解決するサービスを、信頼感のあるモダンなデザインで紹介しています。
 
 ## 🌐 公開URL
-https://yama-o.github.io/cmps-lp/
+[https://yama-o.github.io/cmps-lp/](https://yama-o.github.io/estate-lp/)
 
 ## 🛠 特徴
 * **レスポンシブデザイン**: スマートフォン、タブレット、PCに完全対応
