@@ -10,15 +10,20 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
+        /* --- スムーズスクロール設定（追加部分） --- */
+        html {
+            scroll-behavior: smooth;
+        }
+
         /* --- 変数定義 --- */
         :root {
-            --primary: #0F2540;      /* 深いネイビー（高級感・信頼） */
-            --accent: #C5A059;       /* シャンパンゴールド（品質・品格） */
-            --bg-base: #F9FAFB;      /* わずかにグレーがかった白 */
+            --primary: #0F2540;
+            --accent: #C5A059;
+            --bg-base: #F9FAFB;
             --text-main: #2C3E50;
             --text-sub: #607d8b;
             --white: #ffffff;
-            --shadow: 0 10px 40px rgba(0, 0, 0, 0.08); /* 柔らかく広がる影 */
+            --shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
         }
 
         /* --- 基本リセット & ベース --- */
@@ -29,7 +34,7 @@
             line-height: 1.8;
             margin: 0;
             padding: 0;
-            letter-spacing: 0.05em; /* 文字間を少し広げて洗練させる */
+            letter-spacing: 0.05em;
         }
 
         h1, h2, h3, p, ul { margin: 0; padding: 0; }
@@ -37,7 +42,7 @@
         ul { list-style: none; }
         img { max-width: 100%; height: auto; display: block; }
 
-        /* コンテナ（幅制限） */
+        /* コンテナ */
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -91,7 +96,7 @@
             background-color: var(--primary);
             color: var(--white);
             padding: 12px 30px;
-            border-radius: 50px; /* 丸みを強くしてモダンに */
+            border-radius: 50px;
             font-weight: bold;
             font-size: 0.9rem;
             display: inline-block;
@@ -107,7 +112,7 @@
         .hero {
             position: relative;
             padding: 100px 0 80px;
-            background: linear-gradient(135deg, #fff 50%, #f0f4f8 50%); /* 斜めの切り替え背景 */
+            background: linear-gradient(135deg, #fff 50%, #f0f4f8 50%);
             overflow: hidden;
         }
 
@@ -165,9 +170,8 @@
             box-shadow: var(--shadow);
             width: 100%;
             object-fit: cover;
-            height: 500px; /* 仮の高さ */
+            height: 500px;
         }
-        /* 画像裏の装飾 */
         .hero-img-wrap::before {
             content: '';
             position: absolute;
@@ -212,9 +216,11 @@
             gap: 80px;
             margin-bottom: 120px;
         }
-        /* 偶数番目は逆順に（ジグザグ） */
-        .feature-row:nth-child(even) {
-            flex-direction: row-reverse;
+        /* スマホ以外でジグザグに */
+        @media (min-width: 769px) {
+            .feature-row:nth-child(even) {
+                flex-direction: row-reverse;
+            }
         }
 
         .feature-content { flex: 1; }
@@ -229,7 +235,7 @@
             transition: transform 0.5s ease;
         }
         .feature-image:hover img {
-            transform: scale(1.02); /* ホバーで少し拡大 */
+            transform: scale(1.02);
         }
 
         .target-badge {
@@ -269,20 +275,23 @@
         /* --- スマホ対応 --- */
         @media (max-width: 768px) {
             .header-inner { flex-direction: column; height: auto; padding: 15px 0; }
-            .nav-menu { display: none; } /* 簡易的に非表示 */
+            .nav-menu { display: none; } 
             
             .hero { padding: 40px 0; background: #fff; }
             .hero-grid { grid-template-columns: 1fr; gap: 40px; }
             .hero-title { font-size: 2rem; }
-            .hero-img-wrap { order: -1; } /* 画像を上に */
+            .hero-img-wrap { order: -1; }
             .hero-img-wrap img { height: 300px; }
             .hero-img-wrap::before { display: none; }
 
-            .feature-row, .feature-row:nth-child(even) {
+            .feature-row {
                 flex-direction: column;
                 gap: 40px;
                 margin-bottom: 80px;
             }
+            /* スマホではジグザグ無効化して常に縦並び */
+            .feature-row:nth-child(even) { flex-direction: column; }
+            
             .feature-image img { height: 250px; }
         }
     </style>
@@ -294,7 +303,7 @@
             <div class="logo">CMPS不動産</div>
             <nav>
                 <ul class="nav-menu">
-                    <li><a href="#">サービス紹介</a></li>
+                    <li><a href="#service">サービス紹介</a></li>
                     <li><a href="#">事例紹介</a></li>
                     <li><a href="#">料金プラン</a></li>
                     <li><a href="#">会社概要</a></li>
@@ -326,7 +335,7 @@
         </div>
     </section>
 
-    <section class="features">
+    <section class="features" id="service">
         <div class="container">
             <div class="section-header fade-in">
                 <span class="section-subtitle">OUR SERVICE</span>
