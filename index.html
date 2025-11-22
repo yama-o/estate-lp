@@ -10,23 +10,21 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* --- スムーズスクロール設定（追加部分） --- */
-        html {
-            scroll-behavior: smooth;
-        }
+        /* --- スムーズスクロール --- */
+        html { scroll-behavior: smooth; }
 
         /* --- 変数定義 --- */
         :root {
-            --primary: #0F2540;
-            --accent: #C5A059;
-            --bg-base: #F9FAFB;
+            --primary: #0F2540;      /* ネイビー */
+            --accent: #C5A059;       /* ゴールド */
+            --bg-base: #F9FAFB;      /* 背景色 */
             --text-main: #2C3E50;
             --text-sub: #607d8b;
             --white: #ffffff;
             --shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
         }
 
-        /* --- 基本リセット & ベース --- */
+        /* --- 基本設定 --- */
         body {
             font-family: 'Noto Sans JP', sans-serif;
             color: var(--text-main);
@@ -36,262 +34,144 @@
             padding: 0;
             letter-spacing: 0.05em;
         }
-
         h1, h2, h3, p, ul { margin: 0; padding: 0; }
         a { text-decoration: none; color: inherit; transition: all 0.3s ease; }
         ul { list-style: none; }
         img { max-width: 100%; height: auto; display: block; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
 
-        /* コンテナ */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        /* --- フェードインアニメーション --- */
+        /* --- アニメーション --- */
         .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
+            opacity: 0; transform: translateY(30px);
             transition: opacity 0.8s ease, transform 0.8s ease;
         }
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
 
         /* --- ヘッダー --- */
         header {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            position: sticky; top: 0; z-index: 100;
             box-shadow: 0 2px 10px rgba(0,0,0,0.03);
         }
-
         .header-inner {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 80px;
+            display: flex; justify-content: space-between; align-items: center; height: 80px;
         }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary);
-            letter-spacing: 0.1em;
-        }
-
-        .nav-menu {
-            display: flex;
-            gap: 30px;
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
+        .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary); letter-spacing: 0.1em; }
+        .nav-menu { display: flex; gap: 30px; font-size: 0.9rem; font-weight: 500; }
         .nav-menu a:hover { color: var(--accent); }
 
+        /* --- ボタン（光るエフェクト追加） --- */
         .btn-primary {
-            background-color: var(--primary);
-            color: var(--white);
-            padding: 12px 30px;
-            border-radius: 50px;
-            font-weight: bold;
-            font-size: 0.9rem;
-            display: inline-block;
+            background-color: var(--primary); color: var(--white);
+            padding: 12px 30px; border-radius: 50px;
+            font-weight: bold; font-size: 0.9rem; display: inline-block;
             box-shadow: 0 4px 15px rgba(15, 37, 64, 0.3);
+            position: relative; overflow: hidden;
         }
+        .btn-primary::before {
+            content: ""; position: absolute; top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: 0.5s;
+        }
+        .btn-primary:hover::before { left: 100%; }
         .btn-primary:hover {
-            background-color: var(--accent);
-            transform: translateY(-2px);
+            background-color: var(--accent); transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(197, 160, 89, 0.4);
         }
 
         /* --- FV (ファーストビュー) --- */
         .hero {
-            position: relative;
-            padding: 100px 0 80px;
+            position: relative; padding: 100px 0 80px;
             background: linear-gradient(135deg, #fff 50%, #f0f4f8 50%);
             overflow: hidden;
         }
-
-        .hero-grid {
-            display: grid;
-            grid-template-columns: 1.2fr 1fr;
-            gap: 60px;
-            align-items: center;
-        }
-
-        .hero-tagline {
-            color: var(--accent);
-            font-weight: 700;
-            margin-bottom: 15px;
-            display: block;
-        }
-
-        .hero-title {
-            font-size: 2.8rem;
-            line-height: 1.3;
-            margin-bottom: 30px;
-            color: var(--primary);
-            font-feature-settings: "palt";
-        }
-
-        .problem-list {
-            margin-bottom: 40px;
-        }
-        .problem-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-            font-weight: 500;
-            color: var(--text-main);
-        }
+        .hero-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 60px; align-items: center; }
+        .hero-tagline { color: var(--accent); font-weight: 700; margin-bottom: 15px; display: block; }
+        .hero-title { font-size: 2.8rem; line-height: 1.3; margin-bottom: 30px; color: var(--primary); font-feature-settings: "palt"; }
+        
+        .problem-list { margin-bottom: 40px; }
+        .problem-item { display: flex; align-items: center; margin-bottom: 15px; font-weight: 500; }
         .problem-item i {
-            color: var(--accent);
-            font-size: 1.2rem;
-            margin-right: 15px;
-            background: #fff4e0;
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
+            color: var(--accent); font-size: 1.2rem; margin-right: 15px;
+            background: #fff4e0; width: 30px; height: 30px;
+            display: flex; align-items: center; justify-content: center; border-radius: 50%;
         }
 
-        .hero-img-wrap {
-            position: relative;
-            z-index: 1;
-        }
         .hero-img-wrap img {
-            border-radius: 20px;
-            box-shadow: var(--shadow);
-            width: 100%;
-            object-fit: cover;
-            height: 500px;
-        }
-        .hero-img-wrap::before {
-            content: '';
-            position: absolute;
-            top: -30px;
-            right: -30px;
-            width: 100%;
-            height: 100%;
-            border: 2px solid var(--accent);
-            border-radius: 20px;
-            z-index: -1;
+            border-radius: 20px; box-shadow: var(--shadow);
+            width: 100%; object-fit: cover; height: 500px;
         }
 
         /* --- セクション共通 --- */
         section { padding: 100px 0; }
-        
-        .section-header {
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto 80px;
-        }
-        .section-subtitle {
-            color: var(--accent);
-            font-weight: bold;
-            display: block;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-        }
-        .section-title {
-            font-size: 2.2rem;
-            color: var(--primary);
-            margin-bottom: 20px;
-        }
-        .section-desc {
-            color: var(--text-sub);
-        }
+        .section-header { text-align: center; max-width: 800px; margin: 0 auto 80px; }
+        .section-subtitle { color: var(--accent); font-weight: bold; display: block; margin-bottom: 10px; letter-spacing: 0.15em; }
+        .section-title { font-size: 2.2rem; color: var(--primary); margin-bottom: 20px; }
+        .section-desc { color: var(--text-sub); }
 
-        /* --- 特徴セクション (ジグザグレイアウト) --- */
-        .feature-row {
-            display: flex;
-            align-items: center;
-            gap: 80px;
-            margin-bottom: 120px;
-        }
-        /* スマホ以外でジグザグに */
-        @media (min-width: 769px) {
-            .feature-row:nth-child(even) {
-                flex-direction: row-reverse;
-            }
-        }
-
+        /* --- サービス特徴 --- */
+        .feature-row { display: flex; align-items: center; gap: 80px; margin-bottom: 120px; }
+        @media (min-width: 769px) { .feature-row:nth-child(even) { flex-direction: row-reverse; } }
         .feature-content { flex: 1; }
         .feature-image { flex: 1; }
+        .feature-image img { border-radius: 15px; box-shadow: var(--shadow); width: 100%; height: 400px; object-fit: cover; transition: transform 0.5s ease; }
+        .feature-image:hover img { transform: scale(1.02); }
+        .target-badge { background: var(--primary); color: var(--white); padding: 5px 15px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; display: inline-block; margin-bottom: 15px; }
+        .feature-head { font-size: 1.8rem; margin-bottom: 20px; line-height: 1.4; }
+        .feature-list li { position: relative; padding-left: 25px; margin-bottom: 12px; color: var(--text-sub); }
+        .feature-list li::before { content: ''; position: absolute; left: 0; top: 10px; width: 8px; height: 8px; background-color: var(--accent); border-radius: 50%; }
 
-        .feature-image img {
-            border-radius: 15px;
-            box-shadow: var(--shadow);
-            width: 100%;
-            height: 400px;
-            object-fit: cover;
-            transition: transform 0.5s ease;
+        /* --- 事例紹介 (Works) ※新規追加 --- */
+        .works-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px;
         }
-        .feature-image:hover img {
-            transform: scale(1.02);
+        .work-card {
+            background: #fff; border-radius: 15px; overflow: hidden; box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
         }
+        .work-card:hover { transform: translateY(-5px); }
+        
+        /* ビフォーアフター画像エリア */
+        .work-images { display: flex; height: 200px; }
+        .work-img-box { flex: 1; position: relative; overflow: hidden; }
+        .work-img-box img { width: 100%; height: 100%; object-fit: cover; }
+        
+        /* ラベル (Before/After) */
+        .label {
+            position: absolute; bottom: 0; left: 0;
+            background: rgba(0,0,0,0.6); color: #fff;
+            font-size: 0.7rem; padding: 3px 10px; font-weight: bold;
+        }
+        .label.after { background: var(--accent); }
 
-        .target-badge {
-            background: var(--primary);
-            color: var(--white);
-            padding: 5px 15px;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            display: inline-block;
-            margin-bottom: 15px;
-        }
+        .work-body { padding: 20px; }
+        .work-title { font-weight: bold; font-size: 1.1rem; margin-bottom: 10px; color: var(--primary); }
+        .work-desc { font-size: 0.9rem; color: var(--text-sub); }
 
-        .feature-head {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            line-height: 1.4;
+        /* --- CTA (お問い合わせエリア) --- */
+        .cta-section {
+            background: var(--primary); color: #fff; text-align: center; padding: 80px 20px;
         }
-
-        .feature-list li {
-            position: relative;
-            padding-left: 25px;
-            margin-bottom: 12px;
-            color: var(--text-sub);
+        .cta-title { font-size: 2rem; margin-bottom: 20px; color: #fff; }
+        .cta-btn {
+            background: var(--white); color: var(--primary);
+            padding: 15px 40px; border-radius: 50px; font-weight: bold;
+            display: inline-block; margin-top: 20px;
         }
-        .feature-list li::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 10px;
-            width: 8px;
-            height: 8px;
-            background-color: var(--accent);
-            border-radius: 50%;
-        }
+        .cta-btn:hover { background: var(--accent); color: #fff; }
 
         /* --- スマホ対応 --- */
         @media (max-width: 768px) {
             .header-inner { flex-direction: column; height: auto; padding: 15px 0; }
             .nav-menu { display: none; } 
-            
             .hero { padding: 40px 0; background: #fff; }
             .hero-grid { grid-template-columns: 1fr; gap: 40px; }
             .hero-title { font-size: 2rem; }
             .hero-img-wrap { order: -1; }
             .hero-img-wrap img { height: 300px; }
-            .hero-img-wrap::before { display: none; }
-
-            .feature-row {
-                flex-direction: column;
-                gap: 40px;
-                margin-bottom: 80px;
-            }
-            /* スマホではジグザグ無効化して常に縦並び */
-            .feature-row:nth-child(even) { flex-direction: column; }
-            
+            .feature-row, .feature-row:nth-child(even) { flex-direction: column; gap: 40px; margin-bottom: 80px; }
             .feature-image img { height: 250px; }
         }
     </style>
@@ -304,12 +184,12 @@
             <nav>
                 <ul class="nav-menu">
                     <li><a href="#service">サービス紹介</a></li>
-                    <li><a href="#">事例紹介</a></li>
+                    <li><a href="#works">事例紹介</a></li>
                     <li><a href="#">料金プラン</a></li>
                     <li><a href="#">会社概要</a></li>
                 </ul>
             </nav>
-            <a href="#" class="btn-primary">お問い合わせ</a>
+            <a href="https://forms.google.com/YOUR_FORM_ID" target="_blank" class="btn-primary">お問い合わせ</a>
         </div>
     </header>
 
@@ -326,7 +206,7 @@
                         <div class="problem-item"><i class="fas fa-check"></i> 工事品質とコストのバランスに悩む</div>
                     </div>
 
-                    <a href="#" class="btn-primary">無料お見積り・ご相談 <i class="fas fa-arrow-right" style="margin-left:10px;"></i></a>
+                    <a href="https://forms.google.com/YOUR_FORM_ID" target="_blank" class="btn-primary">無料お見積り・ご相談 <i class="fas fa-arrow-right" style="margin-left:10px;"></i></a>
                 </div>
                 <div class="hero-img-wrap fade-in">
                     <img src="konusi.png" alt="清潔感のある部屋">
@@ -340,7 +220,7 @@
             <div class="section-header fade-in">
                 <span class="section-subtitle">OUR SERVICE</span>
                 <h2 class="section-title">不動産に関わる全ての方へ<br>「頼んでよかった」を届けます</h2>
-                <p class="section-desc">施工、報告書作成、現場外の業務サポートまでワンストップで解決。管理会社様、オーナー様、入居者様それぞれにメリットのあるサービスを提供します。</p>
+                <p class="section-desc">施工、報告書作成、現場外の業務サポートまでワンストップで解決。<br>それぞれの立場に寄り添った最適なソリューションを提供します。</p>
             </div>
 
             <div class="feature-row fade-in">
@@ -394,7 +274,78 @@
         </div>
     </section>
 
-    <footer style="background: var(--primary); color: #fff; padding: 40px 0; text-align: center;">
+    <section id="works" style="background-color: #fff;">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="section-subtitle">CASE STUDY</span>
+                <h2 class="section-title">施工事例</h2>
+                <p class="section-desc">CMPS不動産が手がけた原状回復・リノベーションの実績です。</p>
+            </div>
+
+            <div class="works-grid fade-in">
+                <div class="work-card">
+                    <div class="work-images">
+                        <div class="work-img-box">
+                            <img src="https://images.unsplash.com/photo-1533090481720-856c6e3c1953?auto=format&fit=crop&w=400&q=80" alt="Before">
+                            <span class="label">Before</span>
+                        </div>
+                        <div class="work-img-box">
+                            <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=400&q=80" alt="After">
+                            <span class="label after">After</span>
+                        </div>
+                    </div>
+                    <div class="work-body">
+                        <h3 class="work-title">1DK アパート原状回復</h3>
+                        <p class="work-desc">クロス・床の全面張り替えとクリーニングを実施。明るい印象に生まれ変わりました。</p>
+                    </div>
+                </div>
+
+                <div class="work-card">
+                    <div class="work-images">
+                        <div class="work-img-box">
+                            <img src="https://images.unsplash.com/photo-1484154218962-a1c002085d2f?auto=format&fit=crop&w=400&q=80" alt="Before">
+                            <span class="label">Before</span>
+                        </div>
+                        <div class="work-img-box">
+                            <img src="https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=400&q=80" alt="After">
+                            <span class="label after">After</span>
+                        </div>
+                    </div>
+                    <div class="work-body">
+                        <h3 class="work-title">キッチン設備交換</h3>
+                        <p class="work-desc">古くなったキッチンをシステムキッチンに入れ替え、使い勝手と清潔感を向上。</p>
+                    </div>
+                </div>
+
+                <div class="work-card">
+                    <div class="work-images">
+                        <div class="work-img-box">
+                            <img src="https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&w=400&q=80" alt="Before">
+                            <span class="label">Before</span>
+                        </div>
+                        <div class="work-img-box">
+                            <img src="https://images.unsplash.com/photo-1584622050111-993a426fbf0a?auto=format&fit=crop&w=400&q=80" alt="After">
+                            <span class="label after">After</span>
+                        </div>
+                    </div>
+                    <div class="work-body">
+                        <h3 class="work-title">リビング リノベーション</h3>
+                        <p class="work-desc">和室を洋室へ変更し、モダンなアクセントクロスを採用しました。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="cta-section fade-in">
+        <div class="container">
+            <h2 class="cta-title">お部屋のお悩み、まずはご相談ください</h2>
+            <p>お見積もりは無料です。お急ぎの案件も柔軟に対応いたします。</p>
+            <a href="https://forms.google.com/YOUR_FORM_ID" target="_blank" class="cta-btn">お問い合わせフォームへ</a>
+        </div>
+    </div>
+
+    <footer style="background: #0a1a2f; color: #fff; padding: 40px 0; text-align: center;">
         <div class="container">
             <div class="logo" style="color:#fff; margin-bottom:20px;">CMPS不動産</div>
             <p style="opacity: 0.7; font-size: 0.9rem;">&copy; CMPS Real Estate. All Rights Reserved.</p>
@@ -409,10 +360,7 @@
                 }
             });
         }, { threshold: 0.1 });
-
-        document.querySelectorAll('.fade-in').forEach(el => {
-            observer.observe(el);
-        });
+        document.querySelectorAll('.fade-in').forEach(el => { observer.observe(el); });
     </script>
 
 </body>
