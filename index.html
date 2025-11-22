@@ -6,239 +6,284 @@
     <title>不動産原状回復サービス | CMPS不動産</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* --- 基本設定 --- */
+        /* --- 変数定義 --- */
         :root {
-            --primary-color: #1e3a5f; /* 信頼感のあるネイビー */
-            --accent-color: #f4a261;  /* 親しみのあるオレンジベージュ */
-            --bg-light: #f4f7f6;      /* 清潔感のある背景色 */
-            --text-dark: #333333;
+            --primary: #0F2540;      /* 深いネイビー（高級感・信頼） */
+            --accent: #C5A059;       /* シャンパンゴールド（品質・品格） */
+            --bg-base: #F9FAFB;      /* わずかにグレーがかった白 */
+            --text-main: #2C3E50;
+            --text-sub: #607d8b;
             --white: #ffffff;
+            --shadow: 0 10px 40px rgba(0, 0, 0, 0.08); /* 柔らかく広がる影 */
         }
 
+        /* --- 基本リセット & ベース --- */
         body {
             font-family: 'Noto Sans JP', sans-serif;
-            color: var(--text-dark);
-            line-height: 1.6;
+            color: var(--text-main);
+            background-color: var(--bg-base);
+            line-height: 1.8;
             margin: 0;
             padding: 0;
+            letter-spacing: 0.05em; /* 文字間を少し広げて洗練させる */
         }
 
-        a { text-decoration: none; color: inherit; }
-        ul { list-style: none; padding: 0; }
-        
+        h1, h2, h3, p, ul { margin: 0; padding: 0; }
+        a { text-decoration: none; color: inherit; transition: all 0.3s ease; }
+        ul { list-style: none; }
+        img { max-width: 100%; height: auto; display: block; }
+
+        /* コンテナ（幅制限） */
         .container {
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 24px;
+        }
+
+        /* --- フェードインアニメーション --- */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         /* --- ヘッダー --- */
         header {
-            background: var(--white);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
             position: sticky;
             top: 0;
             z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
         }
-        
+
         .header-inner {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            height: 70px;
+            height: 80px;
         }
 
         .logo {
-            font-weight: 700;
             font-size: 1.5rem;
-            color: var(--primary-color);
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: 0.1em;
         }
 
         .nav-menu {
             display: flex;
-            gap: 20px;
+            gap: 30px;
             font-size: 0.9rem;
-            align-items: center;
+            font-weight: 500;
         }
+        .nav-menu a:hover { color: var(--accent); }
 
-        .nav-menu li a {
-            transition: color 0.3s;
-        }
-        .nav-menu li a:hover {
-            color: var(--accent-color);
-        }
-
-        .btn-contact {
-            background-color: var(--bg-light);
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-weight: bold;
-            border: 1px solid #ccc;
-            transition: 0.3s;
-        }
-        .btn-contact:hover {
-            background-color: var(--primary-color);
+        .btn-primary {
+            background-color: var(--primary);
             color: var(--white);
-            border-color: var(--primary-color);
+            padding: 12px 30px;
+            border-radius: 50px; /* 丸みを強くしてモダンに */
+            font-weight: bold;
+            font-size: 0.9rem;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(15, 37, 64, 0.3);
+        }
+        .btn-primary:hover {
+            background-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(197, 160, 89, 0.4);
         }
 
-        /* --- ファーストビュー (#01 画像2枚目参照) --- */
+        /* --- FV (ファーストビュー) --- */
         .hero {
-            background-color: var(--bg-light);
-            padding: 60px 0;
+            position: relative;
+            padding: 100px 0 80px;
+            background: linear-gradient(135deg, #fff 50%, #f0f4f8 50%); /* 斜めの切り替え背景 */
+            overflow: hidden;
         }
 
-        .hero-content {
-            display: flex;
-            flex-wrap: wrap;
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 60px;
             align-items: center;
-            gap: 40px;
-            border: 2px solid var(--primary-color); /* ワイヤーフレームの枠線イメージ */
-            border-radius: 20px;
-            padding: 40px;
-            background: var(--white);
         }
 
-        .hero-text {
-            flex: 1;
-            min-width: 300px;
+        .hero-tagline {
+            color: var(--accent);
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: block;
         }
 
         .hero-title {
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-            border-bottom: 2px solid var(--accent-color);
-            display: inline-block;
-            padding-bottom: 5px;
+            font-size: 2.8rem;
+            line-height: 1.3;
+            margin-bottom: 30px;
+            color: var(--primary);
+            font-feature-settings: "palt";
         }
 
-        .hero-check-list li {
-            position: relative;
-            padding-left: 1.5em;
-            margin-bottom: 12px;
+        .problem-list {
+            margin-bottom: 40px;
+        }
+        .problem-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
             font-weight: 500;
+            color: var(--text-main);
         }
-
-        .hero-check-list li::before {
-            content: '✔';
-            position: absolute;
-            left: 0;
-            color: var(--primary-color);
-            font-weight: bold;
-        }
-
-        .hero-image {
-            flex: 1;
-            min-width: 300px;
-            height: 300px;
-            background-color: #1e3a5f; /* 画像プレースホルダー */
+        .problem-item i {
+            color: var(--accent);
+            font-size: 1.2rem;
+            margin-right: 15px;
+            background: #fff4e0;
+            width: 30px;
+            height: 30px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--white);
-            border-radius: 10px;
-            text-align: center;
-            padding: 20px;
+            border-radius: 50%;
         }
 
-        /* --- サービスの特徴 (#02 画像3枚目参照) --- */
-        .features {
-            padding: 80px 0;
+        .hero-img-wrap {
+            position: relative;
+            z-index: 1;
+        }
+        .hero-img-wrap img {
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            width: 100%;
+            object-fit: cover;
+            height: 500px; /* 仮の高さ */
+        }
+        /* 画像裏の装飾 */
+        .hero-img-wrap::before {
+            content: '';
+            position: absolute;
+            top: -30px;
+            right: -30px;
+            width: 100%;
+            height: 100%;
+            border: 2px solid var(--accent);
+            border-radius: 20px;
+            z-index: -1;
         }
 
-        .section-title {
-            text-align: center;
-            font-size: 1.8rem;
-            color: var(--primary-color);
-            margin-bottom: 40px;
-        }
+        /* --- セクション共通 --- */
+        section { padding: 100px 0; }
         
-        .features-lead {
+        .section-header {
             text-align: center;
-            background: #e8f5e9; /* 薄い緑（安心感） */
-            padding: 30px;
-            border-radius: 10px;
-            margin-bottom: 50px;
+            max-width: 800px;
+            margin: 0 auto 80px;
+        }
+        .section-subtitle {
+            color: var(--accent);
             font-weight: bold;
-            border: 2px solid #4caf50;
+            display: block;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+        }
+        .section-title {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        .section-desc {
+            color: var(--text-sub);
         }
 
+        /* --- 特徴セクション (ジグザグレイアウト) --- */
         .feature-row {
             display: flex;
-            flex-wrap: wrap;
-            margin-bottom: 40px;
-            gap: 20px;
-        }
-
-        .target-box {
-            flex: 0 0 250px;
-            border: 2px solid var(--primary-color);
-            border-radius: 20px;
-            display: flex;
-            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            padding: 20px;
-            text-align: center;
-            background: var(--white);
+            gap: 80px;
+            margin-bottom: 120px;
+        }
+        /* 偶数番目は逆順に（ジグザグ） */
+        .feature-row:nth-child(even) {
+            flex-direction: row-reverse;
         }
 
-        .target-title {
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin-bottom: 15px;
-        }
+        .feature-content { flex: 1; }
+        .feature-image { flex: 1; }
 
-        .target-img-placeholder {
+        .feature-image img {
+            border-radius: 15px;
+            box-shadow: var(--shadow);
             width: 100%;
-            height: 120px;
-            background: #1e3a5f;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            height: 400px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .feature-image:hover img {
+            transform: scale(1.02); /* ホバーで少し拡大 */
+        }
+
+        .target-badge {
+            background: var(--primary);
+            color: var(--white);
+            padding: 5px 15px;
+            border-radius: 4px;
             font-size: 0.8rem;
-        }
-
-        .benefit-box {
-            flex: 1;
-            border: 2px solid var(--primary-color);
-            border-radius: 20px;
-            padding: 30px;
-            background: #f9f9f9;
-        }
-
-        .benefit-head {
             font-weight: bold;
-            font-size: 1.1rem;
-            border-bottom: 1px solid #ccc;
-            padding-bottom: 10px;
+            display: inline-block;
             margin-bottom: 15px;
         }
 
-        .benefit-list li {
-            margin-bottom: 10px;
-            padding-left: 1em;
-            position: relative;
+        .feature-head {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            line-height: 1.4;
         }
-        .benefit-list li::before {
-            content: '◎';
+
+        .feature-list li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 12px;
+            color: var(--text-sub);
+        }
+        .feature-list li::before {
+            content: '';
             position: absolute;
-            left: -0.5em;
-            color: var(--primary-color);
+            left: 0;
+            top: 10px;
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent);
+            border-radius: 50%;
         }
 
         /* --- スマホ対応 --- */
         @media (max-width: 768px) {
-            .header-inner { flex-direction: column; height: auto; padding: 15px 0; gap: 15px; }
-            .nav-menu { flex-wrap: wrap; justify-content: center; gap: 10px; }
-            .hero-content { padding: 20px; }
-            .feature-row { flex-direction: column; }
-            .target-box { flex: auto; }
+            .header-inner { flex-direction: column; height: auto; padding: 15px 0; }
+            .nav-menu { display: none; } /* 簡易的に非表示 */
+            
+            .hero { padding: 40px 0; background: #fff; }
+            .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+            .hero-title { font-size: 2rem; }
+            .hero-img-wrap { order: -1; } /* 画像を上に */
+            .hero-img-wrap img { height: 300px; }
+            .hero-img-wrap::before { display: none; }
+
+            .feature-row, .feature-row:nth-child(even) {
+                flex-direction: column;
+                gap: 40px;
+                margin-bottom: 80px;
+            }
+            .feature-image img { height: 250px; }
         }
     </style>
 </head>
@@ -246,32 +291,36 @@
 
     <header>
         <div class="container header-inner">
-            <div class="logo">CMPS不動産</div> <ul class="nav-menu">
-                <li><a href="#">サービス紹介</a></li>
-                <li><a href="#">ビフォーアフター</a></li>
-                <li><a href="#">料金表</a></li>
-                <li><a href="#">サービスの流れ</a></li>
-                <li><a href="#">よくあるご質問</a></li>
-            </ul>
-            <a href="#" class="btn-contact">お問い合わせ</a>
+            <div class="logo">CMPS不動産</div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="#">サービス紹介</a></li>
+                    <li><a href="#">事例紹介</a></li>
+                    <li><a href="#">料金プラン</a></li>
+                    <li><a href="#">会社概要</a></li>
+                </ul>
+            </nav>
+            <a href="#" class="btn-primary">お問い合わせ</a>
         </div>
     </header>
 
     <section class="hero">
         <div class="container">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <h2 class="hero-title">不動産管理の現場で、こんなお悩みはありませんか？</h2>
-                    <ul class="hero-check-list">
-                        <li>オーナー様・入居者様とのやりとりで、説明や調整に時間がかかる</li>
-                        <li>写真や報告書の整備が追いつかず、信頼を得るのが難しい</li>
-                        <li>工事費用の妥当性をうまく伝えられない</li>
-                        <li>見積は抑えたいけれど、見栄えや品質にもこだわりたい</li>
-                        <li>ガイドライン対応や退去立会の進め方に不安がある</li>
-                    </ul>
+            <div class="hero-grid">
+                <div class="hero-content fade-in">
+                    <span class="hero-tagline">不動産管理の「困った」を解決</span>
+                    <h1 class="hero-title">原状回復から<br>業務サポートまで、<br>すべてお任せください。</h1>
+                    
+                    <div class="problem-list">
+                        <div class="problem-item"><i class="fas fa-check"></i> オーナー・入居者対応に時間がかかる</div>
+                        <div class="problem-item"><i class="fas fa-check"></i> 写真や報告書の作成が追いつかない</div>
+                        <div class="problem-item"><i class="fas fa-check"></i> 工事品質とコストのバランスに悩む</div>
+                    </div>
+
+                    <a href="#" class="btn-primary">無料お見積り・ご相談 <i class="fas fa-arrow-right" style="margin-left:10px;"></i></a>
                 </div>
-                <div class="hero-image">
-                    <p>きれいな部屋の写真を<br>挿入してください</p>
+                <div class="hero-img-wrap fade-in">
+                    <img src="https://images.unsplash.com/photo-1502005229762-cf1e25392674?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="清潔感のある部屋">
                 </div>
             </div>
         </div>
@@ -279,59 +328,56 @@
 
     <section class="features">
         <div class="container">
-            <h2 class="section-title">サービスの特色</h2>
-            
-            <div class="features-lead">
-                そんな管理会社様のお悩みを、施工〜報告書作成〜現場外の業務サポートまでワンストップで解決します。<br>
-                不動産に関わるすべての方に「頼んでよかった」と思っていただけるサービスです。
+            <div class="section-header fade-in">
+                <span class="section-subtitle">OUR SERVICE</span>
+                <h2 class="section-title">不動産に関わる全ての方へ<br>「頼んでよかった」を届けます</h2>
+                <p class="section-desc">施工、報告書作成、現場外の業務サポートまでワンストップで解決。管理会社様、オーナー様、入居者様それぞれにメリットのあるサービスを提供します。</p>
             </div>
 
-            <div class="feature-row">
-                <div class="target-box">
-                    <div class="target-title">管理会社様</div>
-                    <div class="target-img-placeholder">管理会社っぽい写真</div>
+            <div class="feature-row fade-in">
+                <div class="feature-image">
+                    <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="管理業務">
                 </div>
-                <div class="benefit-box">
-                    <div class="benefit-head">オーナー様からの信頼につながる施工サポート</div>
-                    <p>管理会社様がオーナー様とより良好な関係を築けるよう、施工から報告・資料対応まで、幅広い業務を一貫してサポートいたします。</p>
-                    <ul class="benefit-list">
-                        <li>コスト重視・仕上がり重視など、オーナー様のご希望に応じて柔軟に見積もりをご提案いたします</li>
-                        <li>オーナー様からの急な問い合わせに備え、施工前後の写真や報告書を速やかに共有いたします</li>
-                        <li>入居者様とのトラブルを未然に防ぐため、ガイドラインに基づいた適正な費用をご提示いたします</li>
-                        <li>マイソク作成など、現場以外の業務も幅広くサポートし、管理会社様の負担を軽減します</li>
+                <div class="feature-content">
+                    <span class="target-badge">FOR MANAGEMENT</span>
+                    <h3 class="feature-head">オーナー様からの<br>信頼につながる施工サポート</h3>
+                    <p style="margin-bottom: 20px; color:var(--text-sub);">管理会社様がオーナー様とより良好な関係を築けるよう、施工から報告・資料対応まで一貫してサポートします。</p>
+                    <ul class="feature-list">
+                        <li>ご希望に応じて「コスト重視」「仕上がり重視」など柔軟に提案</li>
+                        <li>施工前後の写真や報告書を速やかに共有し、問い合わせに備える</li>
+                        <li>マイソク作成など、現場以外の業務も幅広く代行可能</li>
                     </ul>
                 </div>
             </div>
 
-            <div class="feature-row">
-                <div class="target-box">
-                    <div class="target-title">オーナー様</div>
-                    <div class="target-img-placeholder">オーナーっぽい写真</div>
+            <div class="feature-row fade-in">
+                <div class="feature-image">
+                    <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="資産価値向上">
                 </div>
-                <div class="benefit-box">
-                    <div class="benefit-head">資産価値を守り高める、納得感のあるご提案</div>
-                    <p>オーナー様のご意向やご予算を踏まえた柔軟なご提案により、無駄のない適正な工事で資産価値の維持・向上をサポートいたします。</p>
-                    <ul class="benefit-list">
-                        <li>ご希望・ご予算に応じて複数パターンの見積もりをご提示することが可能です</li>
-                        <li>不要な工事の排除を徹底し、納得感のある提案を心がけます</li>
-                        <li>原状回復からリフォーム・リノベーションまで幅広く対応可能です</li>
-                        <li>工事後の写真や報告書の速やかな共有により、安心して状況をご確認いただけます</li>
+                <div class="feature-content">
+                    <span class="target-badge">FOR OWNER</span>
+                    <h3 class="feature-head">資産価値を守り高める、<br>納得感のあるご提案</h3>
+                    <p style="margin-bottom: 20px; color:var(--text-sub);">オーナー様のご意向やご予算を踏まえた提案により、無駄のない適正な工事で資産価値の維持・向上を実現します。</p>
+                    <ul class="feature-list">
+                        <li>予算に応じて複数パターンの見積もりを提示可能</li>
+                        <li>不要な工事の排除を徹底し、コストパフォーマンスを最大化</li>
+                        <li>原状回復からリノベーションまで幅広く対応</li>
                     </ul>
                 </div>
             </div>
 
-            <div class="feature-row">
-                <div class="target-box">
-                    <div class="target-title">入居者様</div>
-                    <div class="target-img-placeholder">入居者・家族の写真</div>
+            <div class="feature-row fade-in">
+                <div class="feature-image">
+                    <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="快適な暮らし">
                 </div>
-                <div class="benefit-box">
-                    <div class="benefit-head">法令・ガイドラインに沿った、納得感のある公正な対応</div>
-                    <p>退去時の不安やトラブルを防ぐために、明確な基準に基づいた対応を行います。</p>
-                    <ul class="benefit-list">
-                        <li>国土交通省のガイドラインに基づいた、公正な原状回復費用を算出します</li>
-                        <li>不明瞭な請求をなくし、内容について丁寧にご説明いたします</li>
-                        <li>快適な新生活のためのスピーディーな修繕対応を行います</li>
+                <div class="feature-content">
+                    <span class="target-badge">FOR TENANT</span>
+                    <h3 class="feature-head">ガイドラインに沿った、<br>公正で安心できる対応</h3>
+                    <p style="margin-bottom: 20px; color:var(--text-sub);">退去時の不安やトラブルを防ぐため、明確な基準に基づいた誠実な対応を行います。</p>
+                    <ul class="feature-list">
+                        <li>国交省ガイドラインに基づいた適正な費用算出</li>
+                        <li>不明瞭な請求をなくし、丁寧な説明を実施</li>
+                        <li>快適な新生活のためのスピーディーな修繕対応</li>
                     </ul>
                 </div>
             </div>
@@ -339,9 +385,26 @@
         </div>
     </section>
 
-    <footer style="background:#333; color:#fff; padding:20px; text-align:center;">
-        <p>&copy; CMPS Real Estate. All Rights Reserved.</p>
+    <footer style="background: var(--primary); color: #fff; padding: 40px 0; text-align: center;">
+        <div class="container">
+            <div class="logo" style="color:#fff; margin-bottom:20px;">CMPS不動産</div>
+            <p style="opacity: 0.7; font-size: 0.9rem;">&copy; CMPS Real Estate. All Rights Reserved.</p>
+        </div>
     </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
 
 </body>
 </html>
