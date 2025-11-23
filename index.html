@@ -61,7 +61,7 @@
         .nav-menu { display: flex; gap: 30px; font-size: 0.9rem; font-weight: 500; }
         .nav-menu a:hover { color: var(--accent); }
 
-        /* --- ボタン（光るエフェクト追加） --- */
+        /* --- ボタン --- */
         .btn-primary {
             background-color: var(--primary); color: var(--white);
             padding: 12px 30px; border-radius: 50px;
@@ -123,43 +123,51 @@
         .feature-list li { position: relative; padding-left: 25px; margin-bottom: 12px; color: var(--text-sub); }
         .feature-list li::before { content: ''; position: absolute; left: 0; top: 10px; width: 8px; height: 8px; background-color: var(--accent); border-radius: 50%; }
 
-        /* --- 事例紹介 (Works) ※新規追加 --- */
-        .works-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px;
-        }
-        .work-card {
-            background: #fff; border-radius: 15px; overflow: hidden; box-shadow: var(--shadow);
-            transition: transform 0.3s ease;
-        }
+        /* --- 事例紹介 --- */
+        .works-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
+        .work-card { background: #fff; border-radius: 15px; overflow: hidden; box-shadow: var(--shadow); transition: transform 0.3s ease; }
         .work-card:hover { transform: translateY(-5px); }
-        
-        /* ビフォーアフター画像エリア */
         .work-images { display: flex; height: 200px; }
         .work-img-box { flex: 1; position: relative; overflow: hidden; }
         .work-img-box img { width: 100%; height: 100%; object-fit: cover; }
-        
-        /* ラベル (Before/After) */
-        .label {
-            position: absolute; bottom: 0; left: 0;
-            background: rgba(0,0,0,0.6); color: #fff;
-            font-size: 0.7rem; padding: 3px 10px; font-weight: bold;
-        }
+        .label { position: absolute; bottom: 0; left: 0; background: rgba(0,0,0,0.6); color: #fff; font-size: 0.7rem; padding: 3px 10px; font-weight: bold; }
         .label.after { background: var(--accent); }
-
         .work-body { padding: 20px; }
         .work-title { font-weight: bold; font-size: 1.1rem; margin-bottom: 10px; color: var(--primary); }
         .work-desc { font-size: 0.9rem; color: var(--text-sub); }
 
-        /* --- CTA (お問い合わせエリア) --- */
-        .cta-section {
-            background: var(--primary); color: #fff; text-align: center; padding: 80px 20px;
+        /* --- 料金プラン (Pricing) ※新規追加 --- */
+        .price-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-bottom: 60px;
         }
+        .price-card {
+            background: #fff; padding: 40px 30px; border-radius: 15px; box-shadow: var(--shadow);
+            text-align: center; border: 1px solid #eee;
+        }
+        .price-card.featured { border: 2px solid var(--accent); position: relative; }
+        .price-card.featured::after {
+            content: "人気No.1"; position: absolute; top: -15px; left: 50%; transform: translateX(-50%);
+            background: var(--accent); color: #fff; padding: 5px 15px; border-radius: 20px; font-weight: bold; font-size: 0.8rem;
+        }
+        .plan-name { font-size: 1.2rem; font-weight: bold; color: var(--primary); margin-bottom: 15px; }
+        .plan-price { font-size: 2rem; font-weight: bold; color: var(--text-main); }
+        .plan-unit { font-size: 1rem; color: var(--text-sub); font-weight: normal; }
+        .plan-desc { margin-top: 15px; font-size: 0.9rem; color: var(--text-sub); }
+
+        /* 料金表テーブル */
+        .price-table-wrap {
+            background: #fff; padding: 40px; border-radius: 15px; box-shadow: var(--shadow);
+        }
+        .price-table { width: 100%; border-collapse: collapse; }
+        .price-table th, .price-table td { padding: 15px; border-bottom: 1px solid #eee; text-align: left; }
+        .price-table th { color: var(--primary); width: 30%; }
+        .price-table td { font-weight: 500; }
+        .price-note { margin-top: 20px; font-size: 0.8rem; color: var(--text-sub); text-align: right; }
+
+        /* --- CTA --- */
+        .cta-section { background: var(--primary); color: #fff; text-align: center; padding: 80px 20px; }
         .cta-title { font-size: 2rem; margin-bottom: 20px; color: #fff; }
-        .cta-btn {
-            background: var(--white); color: var(--primary);
-            padding: 15px 40px; border-radius: 50px; font-weight: bold;
-            display: inline-block; margin-top: 20px;
-        }
+        .cta-btn { background: var(--white); color: var(--primary); padding: 15px 40px; border-radius: 50px; font-weight: bold; display: inline-block; margin-top: 20px; }
         .cta-btn:hover { background: var(--accent); color: #fff; }
 
         /* --- スマホ対応 --- */
@@ -168,11 +176,13 @@
             .nav-menu { display: none; } 
             .hero { padding: 40px 0; background: #fff; }
             .hero-grid { grid-template-columns: 1fr; gap: 40px; }
-            .hero-title { font-size: 2rem; }
-            .hero-img-wrap { order: -1; }
-            .hero-img-wrap img { height: 300px; }
-            .feature-row, .feature-row:nth-child(even) { flex-direction: column; gap: 40px; margin-bottom: 80px; }
-            .feature-image img { height: 250px; }
+            .feature-row, .feature-row:nth-child(even) { flex-direction: column; gap: 40px; }
+            
+            /* 料金プランのスマホ対応 */
+            .price-grid { grid-template-columns: 1fr; gap: 20px; }
+            .price-table th, .price-table td { display: block; width: 100%; box-sizing: border-box; }
+            .price-table th { background: #f9f9f9; padding-bottom: 5px; border-bottom: none; }
+            .price-table td { padding-top: 5px; padding-left: 15px; }
         }
     </style>
 </head>
@@ -185,8 +195,7 @@
                 <ul class="nav-menu">
                     <li><a href="#service">サービス紹介</a></li>
                     <li><a href="#works">事例紹介</a></li>
-                    <li><a href="#">料金プラン</a></li>
-                    <li><a href="#">会社概要</a></li>
+                    <li><a href="#price">料金プラン</a></li> <li><a href="#">会社概要</a></li>
                 </ul>
             </nav>
             <a href="https://forms.google.com/YOUR_FORM_ID" target="_blank" class="btn-primary">お問い合わせ</a>
@@ -285,54 +294,88 @@
             <div class="works-grid fade-in">
                 <div class="work-card">
                     <div class="work-images">
-                        <div class="work-img-box">
-                            <img src="https://images.unsplash.com/photo-1533090481720-856c6e3c1953?auto=format&fit=crop&w=400&q=80" alt="Before">
-                            <span class="label">Before</span>
-                        </div>
-                        <div class="work-img-box">
-                            <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=400&q=80" alt="After">
-                            <span class="label after">After</span>
-                        </div>
+                        <div class="work-img-box"><img src="https://images.unsplash.com/photo-1533090481720-856c6e3c1953?auto=format&fit=crop&w=400&q=80" alt="Before"><span class="label">Before</span></div>
+                        <div class="work-img-box"><img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=400&q=80" alt="After"><span class="label after">After</span></div>
                     </div>
-                    <div class="work-body">
-                        <h3 class="work-title">1DK アパート原状回復</h3>
-                        <p class="work-desc">クロス・床の全面張り替えとクリーニングを実施。明るい印象に生まれ変わりました。</p>
-                    </div>
+                    <div class="work-body"><h3 class="work-title">1DK アパート原状回復</h3><p class="work-desc">クロス・床の全面張り替えとクリーニングを実施。明るい印象に生まれ変わりました。</p></div>
                 </div>
-
                 <div class="work-card">
                     <div class="work-images">
-                        <div class="work-img-box">
-                            <img src="https://images.unsplash.com/photo-1484154218962-a1c002085d2f?auto=format&fit=crop&w=400&q=80" alt="Before">
-                            <span class="label">Before</span>
-                        </div>
-                        <div class="work-img-box">
-                            <img src="https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=400&q=80" alt="After">
-                            <span class="label after">After</span>
-                        </div>
+                        <div class="work-img-box"><img src="https://images.unsplash.com/photo-1484154218962-a1c002085d2f?auto=format&fit=crop&w=400&q=80" alt="Before"><span class="label">Before</span></div>
+                        <div class="work-img-box"><img src="https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=400&q=80" alt="After"><span class="label after">After</span></div>
                     </div>
-                    <div class="work-body">
-                        <h3 class="work-title">キッチン設備交換</h3>
-                        <p class="work-desc">古くなったキッチンをシステムキッチンに入れ替え、使い勝手と清潔感を向上。</p>
-                    </div>
+                    <div class="work-body"><h3 class="work-title">キッチン設備交換</h3><p class="work-desc">古くなったキッチンをシステムキッチンに入れ替え、使い勝手と清潔感を向上。</p></div>
                 </div>
-
                 <div class="work-card">
                     <div class="work-images">
-                        <div class="work-img-box">
-                            <img src="https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&w=400&q=80" alt="Before">
-                            <span class="label">Before</span>
-                        </div>
-                        <div class="work-img-box">
-                            <img src="https://images.unsplash.com/photo-1584622050111-993a426fbf0a?auto=format&fit=crop&w=400&q=80" alt="After">
-                            <span class="label after">After</span>
-                        </div>
+                        <div class="work-img-box"><img src="https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&w=400&q=80" alt="Before"><span class="label">Before</span></div>
+                        <div class="work-img-box"><img src="https://images.unsplash.com/photo-1584622050111-993a426fbf0a?auto=format&fit=crop&w=400&q=80" alt="After"><span class="label after">After</span></div>
                     </div>
-                    <div class="work-body">
-                        <h3 class="work-title">リビング リノベーション</h3>
-                        <p class="work-desc">和室を洋室へ変更し、モダンなアクセントクロスを採用しました。</p>
-                    </div>
+                    <div class="work-body"><h3 class="work-title">リビング リノベーション</h3><p class="work-desc">和室を洋室へ変更し、モダンなアクセントクロスを採用しました。</p></div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="price" style="background-color: var(--bg-base);">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="section-subtitle">PRICING</span>
+                <h2 class="section-title">参考価格</h2>
+                <p class="section-desc">適正価格で高品質な施工をご提供します。<br>物件の状態やご要望に合わせて柔軟にお見積もりいたします。</p>
+            </div>
+
+            <div class="price-grid fade-in">
+                <div class="price-card">
+                    <div class="plan-name">1R / 1K</div>
+                    <div class="plan-price">25,000<span class="plan-unit">円〜</span></div>
+                    <div class="plan-desc">基本ルームクリーニング<br>エアコン簡易清掃込み</div>
+                </div>
+                <div class="price-card featured">
+                    <div class="plan-name">1LDK / 2DK</div>
+                    <div class="plan-price">35,000<span class="plan-unit">円〜</span></div>
+                    <div class="plan-desc">基本ルームクリーニング<br>ファミリータイプ向け</div>
+                </div>
+                <div class="price-card">
+                    <div class="plan-name">2LDK以上</div>
+                    <div class="plan-price">45,000<span class="plan-unit">円〜</span></div>
+                    <div class="plan-desc">広さに応じてお見積もり<br>戸建ても対応可能</div>
+                </div>
+            </div>
+
+            <div class="price-table-wrap fade-in">
+                <h3 style="margin-bottom:20px; font-weight:bold; color:var(--primary); text-align:center;">内装・原状回復 単価目安</h3>
+                <table class="price-table">
+                    <tr>
+                        <th>クロス張り替え（量産品）</th>
+                        <td>950円〜 / m</td>
+                    </tr>
+                    <tr>
+                        <th>クッションフロア張り替え</th>
+                        <td>2,800円〜 / ㎡</td>
+                    </tr>
+                    <tr>
+                        <th>フロアタイル張り替え</th>
+                        <td>4,500円〜 / ㎡</td>
+                    </tr>
+                    <tr>
+                        <th>ソフト巾木交換</th>
+                        <td>500円〜 / m</td>
+                    </tr>
+                    <tr>
+                        <th>網戸張り替え</th>
+                        <td>3,000円〜 / 枚</td>
+                    </tr>
+                    <tr>
+                        <th>エアコン内部洗浄</th>
+                        <td>10,000円〜 / 台</td>
+                    </tr>
+                    <tr>
+                        <th>小修繕（パッキン交換等）</th>
+                        <td>別途お見積もり（数千円〜）</td>
+                    </tr>
+                </table>
+                <p class="price-note">※上記価格は税抜表示です。物件の状況や施工面積により変動する場合があります。</p>
             </div>
         </div>
     </section>
